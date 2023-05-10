@@ -1,7 +1,7 @@
 <?php
 require("connect.php");
 
-$sql = "SELECT * FROM users WHERE country_code LIKE 'N%' ORDER BY `users`.`country_code` ASC";
+$sql = "SELECT DISTINCT (country_code) FROM users WHERE country_code LIKE 'N%' ORDER BY `users`.`country_code` ASC";
 $query = $db->prepare($sql);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -51,10 +51,12 @@ require_once('close.php');
     <?php
     require("connect.php");
 
-    $sql = "SELECT country_code COUNT(*) FROM users GROUP BY country_code";
+    $sql = "SELECT country_code, COUNT(*) FROM users GROUP BY country_code ORDER BY COUNT(*) DESC";
     $query = $db->prepare($sql);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    // print_r($result);
     require_once('close.php');
 
     ?>
@@ -66,8 +68,20 @@ require_once('close.php');
         </thead>
 
         <tbody>
-            <td><?= $result['country_code'] ?></td>
-            <td><?= $result['COUNT(*)'] ?> </td>
+            <?php
+            foreach ($result as $result) {
+            ?>
+                <tr>
+
+                    <td><?= $result['country_code'] ?></td>
+                    <td><?= $result['COUNT(*)'] ?> </td>
+                </tr>
+
+            <?php
+
+            }
+            ?>
+
         </tbody>
     </table>
 

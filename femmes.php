@@ -69,13 +69,16 @@ require_once('close.php');
     <?php
     require("connect.php");
 
-    $sql = "SELECT COUNT(*) FROM users";
+    $sql = "SELECT DISTINCT gender, COUNT(id) FROM users GROUP BY gender";
     $query = $db->prepare($sql);
     $query->execute();
-    $femmes = $query->fetchAll(PDO::FETCH_ASSOC);
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    // print_r($result);
     require_once('close.php');
 
     ?>
+
 
     <table>
         <thead>
@@ -84,10 +87,23 @@ require_once('close.php');
         </thead>
 
         <tbody>
-            <td><?= $femmes['COUNT(*)'] ?></td>
-            <td></td>
+
+            <tr>
+                <?php
+                foreach ($result as $result) {
+                ?>
+                    <td>
+
+                        <?= $result['COUNT(id)'] ?>
+                    </td>
+                <?php
+                };
+                ?>
+            </tr>
+
         </tbody>
     </table>
+
 
 </body>
 
