@@ -14,3 +14,8 @@ Utiliser un ou plusieurs fichiers PHP pour créer les requêtes permettant :
 Ressources :
 - module de formation
 - https://sql.sh/
+
+SUBSTR(birth_date, 7, 10)
+
+
+DATEDIFF(DATE(NOW()), STR_TO_DATE('birth_date', '%d,%m,%Y'))
