@@ -53,7 +53,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 </head>
 
 <body>
-    <h1>Edit user </h1>
+    <h1>Edit user <?= $result['first_name']  . " " . $result['last_name'] ?></h1>
     <form method="post">
         <div>
             <input type="hidden" value="<?= $result['id'] ?>" name="id" required>
